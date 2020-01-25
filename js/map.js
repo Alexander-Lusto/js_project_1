@@ -1,14 +1,14 @@
 // 03 DOM
 
-//variables
-var avatars =["01","02", "03", "04", "05", "06", "07", "08"];
-var titles = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
+//letiables
+const avatars =["01","02", "03", "04", "05", "06", "07", "08"];
+const titles = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
 
-var types =['place', 'flat', 'house', 'bungalo'];
-var checkin_times = ['12:00', '13:00', '14:00'];
-var checkout_times = ['12:00', '13:00', '14:00'];
-var features = [ "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
-var photos_array = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
+const types =['place', 'flat', 'house', 'bungalo'];
+const checkin_times = ['12:00', '13:00', '14:00'];
+const checkout_times = ['12:00', '13:00', '14:00'];
+const features = [ "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+const photos_array = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
 
 // generate random number
 function getRandomInt(min, max) {
@@ -16,11 +16,11 @@ function getRandomInt(min, max) {
 }
 
 // generate announcments for map
-var generateObject = function(){
-  var announcements = [];
-  for(var i = 0; i<8; i++){
+let generateObject = function(){
+  let announcements = [];
+  for(let i = 0; i<8; i++){
     announcements[i] = {};
-    var index;
+    let index;
     announcements[i].author = {};
 
     // "avatar": строка, адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} это число от 1 до 8 с ведущим нулём
@@ -37,8 +37,8 @@ var generateObject = function(){
     //"address": строка, адрес предложения, представляет собой запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
     announcements[i].offer['address'] = {};
     announcements[i].offer['address']['location'] = {};
-    var location_x = Math.round(getRandomInt(0, 1000)/50)*50;
-    var location_y = Math.round(getRandomInt(0, 530)/50)*50;
+    let location_x = Math.round(getRandomInt(0, 1000)/50)*50;
+    let location_y = Math.round(getRandomInt(0, 530)/50)*50;
     announcements[i].offer['address']= location_x + ", " + location_y;
 
     //"price": число, случайная цена от 1000 до 100 000
@@ -62,7 +62,7 @@ var generateObject = function(){
     //"features": массив строк случайной длины из предложенных (может ли быть 0 преимуществ?)
     announcements[i].offer['features'] = [];
     index = getRandomInt(1, features.length);
-    for(var j = 0; j < index ; j++){
+    for(let j = 0; j < index ; j++){
       announcements[i].offer['features'][j] = features[j];
     }
     //"description": пустая строка,
@@ -70,9 +70,9 @@ var generateObject = function(){
 
     //"photos": массив из строк расположенных в произвольном порядке
     announcements[i].offer['photos'] = [];
-    var photos = photos_array;
-    var photos_length = photos.length;
-    for(var j = 0; j < photos_length ; j++){
+    const photos = photos_array;
+    let photos_length = photos.length;
+    for(let j = 0; j < photos_length ; j++){
       index = getRandomInt(0, photos.length);
       announcements[i].offer['photos'][j] = photos[index];
       photos.splice(index, 1);
@@ -86,19 +86,19 @@ var generateObject = function(){
   console.log(announcements);
   return announcements;
 }
-var announcements = generateObject();
+let announcements = generateObject();
 
 //show map
-var map = document.querySelector('.map');
+const map = document.querySelector('.map');
 map.classList.remove("map--faded");
 map = map.querySelector('.map__pins');
 
 // add pins to the map
-var addElements = function(elements){
-  var template = document.querySelector('template').content.querySelector('.map__pin') ;
-  for(var i = 0; i < elements.length; i++){
-    var template_item = template.cloneNode(true);
-    var template_item_img = template_item.querySelector('img');
+let addElements = function(elements){
+  const template = document.querySelector('template').content.querySelector('.map__pin') ;
+  for(let i = 0; i < elements.length; i++){
+    const template_item = template.cloneNode(true);
+    let template_item_img = template_item.querySelector('img');
     template_item.style = 'left: ' + elements[i].location['x'] + 'px; ' + 'bottom: '  + elements[i].location['y'] + 'px;';
     template_item_img.src = elements[i].author['avatar'];
     template_item_img.title = elements[i].offer['title'];
@@ -107,8 +107,8 @@ var addElements = function(elements){
 }
 
 addElements(announcements);
-var createElement = function(html_tag, class_name, text, parent_block){
-  var element = document.createElement(html_tag);
+let createElement = function(html_tag, class_name, text, parent_block){
+  let element = document.createElement(html_tag);
   element.classList.add(class_name);
   element.textContent = text;
   if(parent_block){
@@ -120,13 +120,13 @@ var createElement = function(html_tag, class_name, text, parent_block){
 }
 
 // add announcment to the page
-var addAnouncement = function(element){
+let addAnouncement = function(element){
   //create template
-  var template = document.querySelector('template').content.querySelector('.map__card');
-  var template_item = template.cloneNode();
+  const template = document.querySelector('template').content.querySelector('.map__card');
+  const template_item = template.cloneNode();
 
   //create avatar
-  var avatar = createElement('img','popup__avatar');
+  let avatar = createElement('img','popup__avatar');
   avatar.src = element.author['avatar'];
   avatar.width = 70;
   avatar.height = 70;
@@ -145,7 +145,7 @@ var addAnouncement = function(element){
   createElement('p','popup__text--price', element.offer['price'] + ' \u{20BD}/ночь', template_item);
 
   //create popup__type
-  var type = createElement('h4','popup__type');
+  let type = createElement('h4','popup__type');
   switch(element.offer['type']){
     case 'flat':
     type.textContent = 'Квартира';
@@ -172,10 +172,10 @@ var addAnouncement = function(element){
   createElement('p','popup__text--time','Заезд после ' + element.offer['checkin'] + ', выезд до ' + element.offer['checkout'], template_item);
 
   //create features
-  var features = createElement('ul', 'popup__features', "", template_item);
+  let features = createElement('ul', 'popup__features', "", template_item);
   console.log(features);
-  for(var i = 0; i < element.offer['features'].length; i++){
-    var features_item = document.createElement('li');
+  for(let i = 0; i < element.offer['features'].length; i++){
+    let features_item = document.createElement('li');
     switch(element.offer['features'][i]){
       case 'wifi':
       features_item.classList.add('feature','feature--wifi');
@@ -208,12 +208,12 @@ var addAnouncement = function(element){
   createElement('p','popup__description', element.offer['description'], template_item);
 
   //create photos
-  var photos = createElement('ul','popup__photos', "", template_item);
-  for(var i = 0; i < element.offer['photos'].length; i++){
-    var photos_item = document.createElement('li');
+  let photos = createElement('ul','popup__photos', "", template_item);
+  for(let i = 0; i < element.offer['photos'].length; i++){
+    let photos_item = document.createElement('li');
     photos_item.style = 'display: inline;';
     photos.appendChild(photos_item);
-    var photos_item_img = document.createElement('img');
+    let photos_item_img = document.createElement('img');
     photos_item.appendChild(photos_item_img);
     photos_item_img.src = element.offer['photos'][i];
     photos_item_img.width = 65;
