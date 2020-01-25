@@ -8,7 +8,7 @@ var types =['place', 'flat', 'house', 'bungalo'];
 var checkin_times = ['12:00', '13:00', '14:00'];
 var checkout_times = ['12:00', '13:00', '14:00'];
 var features = [ "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
-//var photos = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
+var photos_array = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
 
 // generate random number
 function getRandomInt(min, max) {
@@ -70,7 +70,7 @@ var generateObject = function(){
 
     //"photos": массив из строк расположенных в произвольном порядке
     announcements[i].offer['photos'] = [];
-    var photos = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
+    var photos = photos_array;
     var photos_length = photos.length;
     for(var j = 0; j < photos_length ; j++){
       index = getRandomInt(0, photos.length);
@@ -105,7 +105,19 @@ var addElements = function(elements){
     map.appendChild(template_item);
   }
 }
+
 addElements(announcements);
+var createElement = function(html_tag, class_name, text, parent_block){
+  var element = document.createElement(html_tag);
+  element.classList.add(class_name);
+  element.textContent = text;
+  if(parent_block){
+    parent_block.appendChild(element);
+    return element;
+  } else{
+    return element;
+  }
+}
 
 // add announcment to the page
 var addAnouncement = function(element){
@@ -114,39 +126,26 @@ var addAnouncement = function(element){
   var template_item = template.cloneNode();
 
   //create avatar
-  var avatar = document.createElement('img');
-  avatar.classList.add('popup__avatar');
+  var avatar = createElement('img','popup__avatar');
   avatar.src = element.author['avatar'];
   avatar.width = 70;
   avatar.height = 70;
   template_item.appendChild(avatar);
 
   //create button
-  var close_button = document.createElement('button');
-  close_button.classList.add('popup__close');
-  close_button.textContent = 'Закрыть';
-  template_item.appendChild(close_button);
+  createElement('button','popup__close','Закрыть', template_item);
 
   // create title
-  var title = document.createElement('h3');
-  title.classList.add('popup__title');
-  title.textContent = element.offer['title'];
-  template_item.appendChild(title);
+  createElement('h3','popup__title', element.offer['title'], template_item);
 
   // create address
-  var address = document.createElement('p');
-  address.classList.add('popup__text--address');
-  address.textContent = element.offer['address'];
-  template_item.appendChild(address );
+  createElement('p','popup__text--address', element.offer['address'], template_item);
+
   // create price
-  var price = document.createElement('p');
-  price.classList.add('popup__text--price');
-  price.textContent = element.offer['price'] + ' \u{20BD}/ночь';
-  template_item.appendChild(price);
+  createElement('p','popup__text--price', element.offer['price'] + ' \u{20BD}/ночь', template_item);
 
   //create popup__type
-  var type = document.createElement('h4');
-  type.classList.add('popup__type');
+  var type = createElement('h4','popup__type');
   switch(element.offer['type']){
     case 'flat':
     type.textContent = 'Квартира';
@@ -167,21 +166,14 @@ var addAnouncement = function(element){
   template_item.appendChild(type);
 
   //create rooms and guests
-  var guests = document.createElement('p');
-  guests.classList.add('popup__text--capacity');
-  guests.textContent = element.offer['rooms'] + ' комнаты для ' + element.offer['guests'] + ' гостей';
-  template_item.appendChild(guests);
+  createElement('p','popup__text--capacity',element.offer['rooms'] + ' комнаты для ' + element.offer['guests'] + ' гостей', template_item);
 
   //create checkin and checkout time
-  var time = document.createElement('p');
-  time.classList.add('popup__text--time');
-  time.textContent = 'Заезд после ' + element.offer['checkin'] + ', выезд до ' + element.offer['checkout'];
-  template_item.appendChild(time);
+  createElement('p','popup__text--time','Заезд после ' + element.offer['checkin'] + ', выезд до ' + element.offer['checkout'], template_item);
 
   //create features
-  var features = document.createElement('ul');
-  features.classList.add('popup__features');
-  template_item.appendChild(features);
+  var features = createElement('ul', 'popup__features', "", template_item);
+  console.log(features);
   for(var i = 0; i < element.offer['features'].length; i++){
     var features_item = document.createElement('li');
     switch(element.offer['features'][i]){
@@ -213,16 +205,10 @@ var addAnouncement = function(element){
   }
 
   //create description
-  var description = document.createElement('p');
-  description.classList.add('popup__description');
-  description.textContent = element.offer['description'];
-  template_item.appendChild(description);
-
+  createElement('p','popup__description', element.offer['description'], template_item);
 
   //create photos
-  var photos= document.createElement('ul');
-  photos.classList.add('popup__photos');
-  template_item.appendChild(photos);
+  var photos = createElement('ul','popup__photos', "", template_item);
   for(var i = 0; i < element.offer['photos'].length; i++){
     var photos_item = document.createElement('li');
     photos_item.style = 'display: inline;';
