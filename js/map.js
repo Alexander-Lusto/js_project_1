@@ -89,7 +89,7 @@ let generateObject = function(){
 let announcements = generateObject();
 
 //show map
-const map = document.querySelector('.map');
+let map = document.querySelector('.map');
 map.classList.remove("map--faded");
 map = map.querySelector('.map__pins');
 
@@ -219,7 +219,7 @@ let addAnouncement = function(element){
     photos_item_img.width = 65;
     photos_item_img.height = 65;
     photos_item_img.style = 'display: inline; margin-right: 5px;';
-    features.appendChild(features_item);
+    photos_item.appendChild(photos_item_img);
   }
   map.appendChild(template_item);
   console.log(template_item);
