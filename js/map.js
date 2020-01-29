@@ -8,7 +8,7 @@ const types =['place', 'flat', 'house', 'bungalo'];
 const checkin_times = ['12:00', '13:00', '14:00'];
 const checkout_times = ['12:00', '13:00', '14:00'];
 const features = [ "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
-const photos_array = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
+//const photos_array = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
 
 // generate random number
 function getRandomInt(min, max) {
@@ -70,13 +70,14 @@ let generateObject = function(){
 
     //"photos": массив из строк расположенных в произвольном порядке
     announcements[i].offer['photos'] = [];
-    const photos = photos_array;
+    const photos = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
     let photos_length = photos.length;
     for(let j = 0; j < photos_length ; j++){
       index = getRandomInt(0, photos.length);
       announcements[i].offer['photos'][j] = photos[index];
       photos.splice(index, 1);
     }
+
     //"location": «x»: случайное число, координата x метки на карте. «y»: случайное число, координата y метки на карте от 130 до 630.
     //Значение ограничено размерами блока, в котором перетаскивается метка.
     announcements[i].location = {};
@@ -86,12 +87,8 @@ let generateObject = function(){
   console.log(announcements);
   return announcements;
 }
-let announcements = generateObject();
 
-//show map
-let map = document.querySelector('.map');
-map.classList.remove("map--faded");
-map = map.querySelector('.map__pins');
+let announcements = generateObject();
 
 // add pins to the map
 let addElements = function(elements){
@@ -102,11 +99,14 @@ let addElements = function(elements){
     template_item.style = 'left: ' + elements[i].location['x'] + 'px; ' + 'bottom: '  + elements[i].location['y'] + 'px;';
     template_item_img.src = elements[i].author['avatar'];
     template_item_img.title = elements[i].offer['title'];
-    map.appendChild(template_item);
+    template_item.addEventListener('click', function(){
+      console.log('click');
+      addAnouncement(announcements[i]);
+    });
+    map_area.appendChild(template_item);
   }
 }
 
-addElements(announcements);
 let createElement = function(html_tag, class_name, text, parent_block){
   let element = document.createElement(html_tag);
   element.classList.add(class_name);
@@ -133,7 +133,10 @@ let addAnouncement = function(element){
   template_item.appendChild(avatar);
 
   //create button
-  createElement('button','popup__close','Закрыть', template_item);
+  var popup_close = createElement('button','popup__close','Закрыть', template_item);
+  popup_close.addEventListener('click', function(){
+      template_item.remove();
+  });
 
   // create title
   createElement('h3','popup__title', element.offer['title'], template_item);
@@ -173,7 +176,6 @@ let addAnouncement = function(element){
 
   //create features
   let features = createElement('ul', 'popup__features', "", template_item);
-  console.log(features);
   for(let i = 0; i < element.offer['features'].length; i++){
     let features_item = document.createElement('li');
     switch(element.offer['features'][i]){
@@ -221,7 +223,6 @@ let addAnouncement = function(element){
     photos_item_img.style = 'display: inline; margin-right: 5px;';
     photos_item.appendChild(photos_item_img);
   }
-  map.appendChild(template_item);
+  map_area.appendChild(template_item);
   console.log(template_item);
 }
-addAnouncement(announcements[0]);
