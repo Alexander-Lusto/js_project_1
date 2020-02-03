@@ -84,11 +84,13 @@ let generateObject = function(){
     announcements[i].location['x'] = location_x;
     announcements[i].location['y'] = location_y;
   }
-  console.log(announcements);
+  //console.log(announcements);
   return announcements;
 }
 
 let announcements = generateObject();
+
+
 
 // add pins to the map
 let addElements = function(elements){
@@ -100,10 +102,10 @@ let addElements = function(elements){
     template_item_img.src = elements[i].author['avatar'];
     template_item_img.title = elements[i].offer['title'];
     template_item.addEventListener('click', function(){
-      console.log('click');
+      deletePreviousAnnouncements();
       addAnouncement(announcements[i]);
     });
-    map_area.appendChild(template_item);
+    map_elements.area.appendChild(template_item);
   }
 }
 
@@ -132,10 +134,10 @@ let addAnouncement = function(element){
   avatar.height = 70;
   template_item.appendChild(avatar);
 
-  //create button
+  //create close button
   var popup_close = createElement('button','popup__close','Закрыть', template_item);
   popup_close.addEventListener('click', function(){
-      template_item.remove();
+     template_item.remove();
   });
 
   // create title
@@ -223,6 +225,12 @@ let addAnouncement = function(element){
     photos_item_img.style = 'display: inline; margin-right: 5px;';
     photos_item.appendChild(photos_item_img);
   }
-  map_area.appendChild(template_item);
-  console.log(template_item);
+  map_elements.area.appendChild(template_item);
+}
+
+let deletePreviousAnnouncements = function () {
+  let map_cards = map.querySelectorAll('.map__card');
+  for(let i = 0; i < map_cards.length; i++){
+    map_cards[i].remove();
+  }
 }

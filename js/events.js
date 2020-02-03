@@ -1,19 +1,31 @@
 //04 Events and validation
-const  map = document.querySelector('.map');
-const map_area = map.querySelector('.map__pins');
-const main_pin = map.querySelector('.map__pin--main');
-const main_pin_height = 80;
-const pin_height = 18;
+const map = document.querySelector('.map');
+const  map_elements = {
+  area: map.querySelector('.map__pins'),
+  main_pin: map.querySelector('.map__pin--main'),
+  main_pin_height: 80,
+  pin_height: 18,
+}
 
-const form = document.querySelector('.notice__form');
-const fieldsets = form.querySelectorAll('fieldset');
-const address = form.querySelector('input[name="address"]');
+const form =  document.querySelector('.notice__form');
+const form_elements = {
+  fieldsets: form.querySelectorAll('fieldset'),
+  address: form.querySelector('input[name="address"]'),
+  price: form.querySelector('#price'),
+  type: form.querySelector('#type'),
+  checkin: form.querySelector('#timein'),
+  checkout: form.querySelector('#timeout'),
+  rooms: form.querySelector('#room_number'),
+  guests: form.querySelector('#capacity'),
+  guests_options: form.querySelectorAll('#capacity option'),
+};
 
+console.log(form_elements);
 
-let activateForm = function(form, fieldsets){
+let activateForm = function(){
   form.classList.remove('notice__form--disabled');
-  for(let i = 0; i < fieldsets.length; i++){
-    fieldsets[i].disabled = false;
+  for(let i = 0; i < form_elements.fieldsets.length; i++){
+    form_elements.fieldsets[i].disabled = false;
   }
 }
 
@@ -31,111 +43,96 @@ let getPinCoords = function(elem) {
   let box = elem.getBoundingClientRect();
 
   return {
-    top: box.top + pageYOffset + main_pin_height,
+    top: box.top + pageYOffset + map_elements.main_pin_height,
     left: box.left + pageXOffset + (box.width / 2)
   };
 }
 
-getPinCoordsBeforeStart(main_pin);
+getPinCoordsBeforeStart(map_elements.main_pin);
 
-main_pin.addEventListener('mouseup', function(){
-   map.classList.remove("map--faded");
-   addElements(announcements);
-   activateForm(form, fieldsets);
-   let coord_x = Math.round(getPinCoords(main_pin).left);
-   let coord_y = Math.round(getPinCoords(main_pin).top);
-   address.value = coord_x + " x, " + coord_y + " y;";
-});
+//функция которая вешает слушатель событий
+let addListener = function(element, event_type, call_back){
+  element.addEventListener(event_type, call_back);
+}
+
+//activate page
+let activatePage = function(){
+  map.classList.remove("map--faded");
+  addElements(announcements);
+  activateForm(form, form_elements.fieldsets);
+  let coord_x = Math.round(getPinCoords(map_elements.main_pin).left);
+  let coord_y = Math.round(getPinCoords(map_elements.main_pin).top);
+  address.value = coord_x + " x, " + coord_y + " y;";
+}
+addListener(map_elements.main_pin, 'mouseup', activatePage);
 
 //FORM VALIDATION
-const form_price = document.getElementById('price');
-const form_type = document.getElementById('type');
-
-const form_checkin = document.getElementById('timein');
-const form_checkout = document.getElementById('timeout');
-
-const form_rooms = document.getElementById('room_number');
-const form_guests = document.getElementById('capacity');
-const form_guests_options = form_guests.children;
-
-// type and price connection
-form_type.addEventListener('change', function(){
-  switch(form_type.value){
-
+let connectPriceAndType = function(){
+  switch(form_elements.type.value){
     case "bungalo":
-    form_price.min = 0;
-    form_price.placeholder = 0;
+    form_elements.price.min = 0;
+    form_elements.price.placeholder = 0;
     break;
 
     case "flat":
-    form_price.min = 1000;
-    form_price.placeholder = 1000;
+    form_elements.price.min = 1000;
+    form_elements.price.placeholder = 1000;
     break;
 
     case "house":
-    form_price.min = 5000;
-    form_price.placeholder = 5000;
+    form_elements.price.min = 5000;
+    form_elements.price.placeholder = 5000;
     break;
 
     case "palace":
-    form_price.min = 10000;
-    form_price.placeholder = 10000;
+    form_elements.price.min = 10000;
+    form_elements.price.placeholder = 10000;
     break;
   }
-});
+}
+addListener(form_elements.type, 'change', connectPriceAndType);
 
 //checkin and checkout connection
-form_checkin.addEventListener('change', function(){
-  if (form_checkin.value === "12:00"){
-    form_checkout.value = "12:00";
-  } else if (form_checkin.value === "13:00"){
-    form_checkout.value = "13:00";
-  } else if (form_checkin.value === "14:00"){
-    form_checkout.value = "14:00";
-  }
-});
-
-form_checkout.addEventListener('change', function(){
-  if (form_checkout.value === "12:00"){
-    form_checkoin.value = "12:00";
-  } else if (form_checkout.value === "13:00"){
-    form_checkin.value = "13:00";
-  } else if (form_checkout.value === "14:00"){
-    form_checkin.value = "14:00";
-  }
-});
+ var connectTime = function(time_1, time_2){
+   time_2.value = time_1.value;
+}
+addListener(form_elements.checkin, 'change',  () => connectTime(form_elements.checkin, form_elements.checkout));
+addListener(form_elements.checkout, 'change', () => connectTime(form_elements.checkout, form_elements.checkin));
 
 //rooms and guests connection
-form_rooms.addEventListener('change', function(){
-  switch(form_rooms.value){
+let connectRoomsAndGuests =  function(){
+  for(let i = 0; i < form_elements.guests_options.length; i++){
+    form_elements.guests_options[i].disabled = true;
+  }
+  switch(form_elements.rooms.value){
     case "1":// 1 комната
-      form_guests_options[0].disabled = true;
-      form_guests_options[1].disabled = true;
-      form_guests_options[2].disabled = false;
-      form_guests_options[3].disabled = true;
-      form_guests.value = 1;
+      form_elements.guests_options[2].disabled = false;
+      form_elements.guests.value = 1;
       break;
     case "2": //2 комнаты
-      form_guests_options[0].disabled = true;
-      form_guests_options[1].disabled = false;
-      form_guests_options[2].disabled = false;
-      form_guests_options[3].disabled = true;
-      form_guests.value = 2;
+      form_elements.guests_options[1].disabled = false;
+      form_elements.guests_options[2].disabled = false;
+      form_elements.guests.value = 2;
       break;
     case "3": // 3 комнаты
-      form_guests_options[0].disabled = false;
-      form_guests_options[1].disabled = false;
-      form_guests_options[2].disabled = false;
-      form_guests_options[3].disabled = true;
-      form_guests.value = 3;
+      form_elements.guests_options[0].disabled = false;
+      form_elements.guests_options[1].disabled = false;
+      form_elements.guests_options[2].disabled = false;
+      form_elements.guests.value = 3;
       break;
     case "100": // 100 комнат
-      form_guests_options[0].disabled = true;
-      form_guests_options[1].disabled = true;
-      form_guests_options[2].disabled = true;
-      form_guests_options[3].disabled = false;
-      form_guests.value = 0;
+      form_elements.guests_options[3].disabled = false;
+      form_elements.guests.value = 0;
       break;
   }
-  console.log('click')
-})
+}
+addListener(form_elements.rooms, 'change', connectRoomsAndGuests);
+
+// submit form validation
+form.addEventListener('invalid', function(evt){
+  evt.target.classList.add('invalid');
+}, true);
+
+form.addEventListener('change', function(evt){
+  evt.target.classList.remove('invalid');
+}, true);
