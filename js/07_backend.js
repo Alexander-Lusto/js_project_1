@@ -1,7 +1,6 @@
 'use strict';
 (function(){
-  var POST_DATA_URL = "https://js.dump.academy/keksobooking";
-  var GET_DATA_URL = "https://js.dump.academy/keksobooking/data";
+  var BASE_URL = "https://js.dump.academy/keksobooking";
   var TIMEOUT = 30000;
 
   var requetToServer = function (method, url, onLoad, data = "") {
@@ -22,7 +21,7 @@
     });
 
     xhr.addEventListener('timeout', function(){
-      showError('Запрос не успел выполнится за ' + xhr.timeout + ' мс');
+      showError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
 
     xhr.timeout = TIMEOUT;
@@ -37,7 +36,7 @@
       form.reset();
     }
 
-    requetToServer('POST', POST_DATA_URL, onLoad, new FormData(form));
+    requetToServer('POST', BASE_URL, onLoad, new FormData(form));
   });
 
   //get information from server;
@@ -45,6 +44,5 @@
     return window.server_data = data;
   }
 
-  requetToServer('GET', GET_DATA_URL, onLoad);
-
+  requetToServer('GET', BASE_URL + '/data', onLoad);
 })();
