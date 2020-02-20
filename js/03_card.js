@@ -13,7 +13,7 @@
     }
   }
 
-  window.createCard = function(object){ //announcement[7]
+  window.createCard = function(object){
     //create template
     var template = document.querySelector('template').content.querySelector('.map__card');
     var template_item = template.cloneNode();

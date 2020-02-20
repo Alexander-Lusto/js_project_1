@@ -1,8 +1,6 @@
-// 00 global variables and functions
 'use strict';
-
-(function(){
-
+// 00 global variables and functions
+(function () {
   window.map = document.querySelector('.map');
   window.map_elements = {
     area: map.querySelector('.map__pins'),
@@ -11,7 +9,7 @@
     pin_height: 18,
   }
 
-  window.form =  document.querySelector('.notice__form');
+  window.form = document.querySelector('.notice__form');
   window.form_elements = {
     fieldsets: form.querySelectorAll('fieldset'),
     address: form.querySelector('input[name="address"]'),
@@ -24,15 +22,15 @@
     guests_options: form.querySelectorAll('#capacity option'),
   };
 
-  //функция которая перемешивает элементы массива
+  // функция которая перемешивает элементы массива
   window.shuffleArray = function (array) {
-      for (var i = array.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = array[i];
-          array[i] = array[j];
-          array[j] = temp;
-      }
-      return array;
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
   }
 
   //функция которая возвращает случайное число из диапазона

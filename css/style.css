@@ -340,7 +340,7 @@ textarea:focus {
 
   position: absolute;
   left: 20px;
-  top: 150px;
+  top: 100px;
 
   background: #fff;
   border-radius: 5px;
@@ -700,7 +700,65 @@ textarea:focus {
 .footer-social-item-vk {
   background-position: -10px -10px;
 }
+
 .invalid{
   outline: none;
   box-shadow: 0 0 4px 1px #ff6547;
+}
+
+.error{
+  width: 400px;
+  padding: 50px 50px;
+
+  position: fixed;
+  left: 50%;
+  top: 80px;
+  transform: translateX(-50%);
+
+  background: #89a1fd;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+
+  text-align: center;
+  color: red;
+  background-color: white;
+  font-family: inherit;
+  font-size: 22px;
+
+  z-index: 3;
+}
+
+.btn-close{
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  font-size: 50px;
+  color: #000;
+  cursor: pointer;
+
+  transform: translateY(-0.3em);
+}
+
+.message{
+  width: 400px;
+  padding: 50px 50px;
+
+  position: fixed;
+  left: 50%;
+  top: 80px;
+  transform: translateX(-50%);
+
+  background: #89a1fd;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+
+  text-align: center;
+  color: black;
+  background-color: white;
+  font-family: inherit;
+  font-size: 22px;
+
+  z-index: 3;
 }

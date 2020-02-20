@@ -27,9 +27,13 @@
       author:{
         avatar: 'img/avatars/user' +  avatars[i] + '.png'
       },
+      location:{
+        x: Math.round(getRandomInt(0, 1000)/50)*50,
+        y: Math.round(getRandomInt(0, 530)/50)*50
+      },
       offer:{
         title: titles[i],
-        address: location.x +", " + location.y,
+        address: 'x' + ' y',
         price: getRandomInt(1000, 1000000),
         type: (i>=0 && i<=1) ? types[0]:
               (i>=2 && i<=3) ? types[1]:
@@ -42,12 +46,7 @@
         features: getFeaturesRendomLength(),
         description: "",
         photos: shuffleArray(photos)
-      },
-      location:{
-        x: Math.round(getRandomInt(0, 1000)/50)*50,
-        y: Math.round(getRandomInt(0, 530)/50)*50
       }
     }
   }
-  console.log(announcements);
 })();
