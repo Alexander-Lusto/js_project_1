@@ -20,11 +20,10 @@
   getPinCoordsBeforeStart(map_elements.main_pin);
 
   //activate page
-  var activatePage = function(){
+  window.activatePage = function(){
     map.classList.remove("map--faded");
-    addPinsOnMap(server_data);
     activateForm(form, form_elements.fieldsets);
+    addPinsOnMap(server_data);
     map_elements.main_pin.removeEventListener('mouseup', activatePage);
   }
-  addListener(map_elements.main_pin, 'mouseup', activatePage);
 })();

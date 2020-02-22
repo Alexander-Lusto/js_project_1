@@ -6,7 +6,7 @@
   var types =['flat', 'place', 'house', 'bungalo'];
   var checkin_times = ['12:00', '13:00', '14:00'];
   var checkout_times = ['12:00', '13:00', '14:00'];
-  var features = [ "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+  var features = [ "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
   var photos = [ "http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg","http://o0.github.io/assets/images/tokyo/hotel3.jpg" ];
   window.announcements = [];
 
