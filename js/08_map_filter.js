@@ -19,19 +19,9 @@
   }
 
   var filterPins = function () {
+
     var filtered_by_type = server_data.filter(function (item) {
-      if (filter['type'].value === 'any') {
-        return item;
-      }
-      else if ( filter['type'].value === 'flat') {
-        return item.offer.type === 'flat';
-      }
-      else if (filter['type'].value === 'house') {
-        return item.offer.type === 'house';
-      }
-      else if (filter['type'].value === 'bungalo') {
-        return item.offer.type === 'bungalo';
-      }
+      return item.offer.type === filter['type'].value || filter['type'].value === 'any';
     });
 
     var filtered_by_price = filtered_by_type.filter(function (item) {
@@ -50,33 +40,15 @@
     });
 
     var filtered_by_rooms = filtered_by_price.filter(function (item) {
-      if (filter['rooms'].value === 'any') {
-        return item;
-      }
-      else if (filter['rooms'].value === '1') {
-        return item.offer.rooms === 1;
-      }
-      else if (filter['rooms'].value === '2') {
-        return item.offer.rooms === 2;
-      }
-      else if (filter['rooms'].value === '3') {
-        return item.offer.rooms === 3;
-      }
+      return item.offer.rooms === Number(filter['rooms'].value) || filter['rooms'].value === 'any';
     });
 
     var filtered_by_guests = filtered_by_rooms.filter(function (item) {
-      if (filter['guests'].value === 'any') {
-        return item;
-      }
-      else if (filter['guests'].value === '1') {
-        return item.offer.guests === 1;
-      }
-      else if (filter['guests'].value === '2') {
-        return item.offer.guests === 2;
-      }
+      return item.offer.guests === Number(filter['guests'].value) || filter['guests'].value === 'any';
     });
 
     var filterByFeatures = function (feature, array) {
+
       if (filter.features[feature].checked === true) {
 
         var filtered_by_smth = array.filter(function (item) {
