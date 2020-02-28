@@ -20,32 +20,38 @@
 
   var filterPins = function () {
 
-    var filtered_by_type = server_data.filter(function (item) {
-      return item.offer.type === filter['type'].value || filter['type'].value === 'any';
-    });
+    var filterArray = function (filter_type, array) {
+      var filtered_array = array.filter(function (item){
+        if (filter_type === 'rooms' || filter_type === 'gusts'){
+          return item.offer[filter_type] === Number(filter[filter_type].value) || filter[filter_type].value === 'any';
+        }
+        else if (filter_type === 'price'){
 
-    var filtered_by_price = filtered_by_type.filter(function (item) {
-      if (filter['price'].value === 'any') {
-        return item;
-      }
-      else if (filter['price'].value === 'low') {
-        return item.offer['price'] < 10000;
-      }
-      else if (filter['price'].value === 'middle') {
-        return item.offer['price'] > 10000 && item.offer['price'] < 50000;
-      }
-      else if (filter['price'].value === 'high') {
-        return item.offer['price'] > 50000;
-      }
-    });
+          if (filter['price'].value === 'any') {
+            return item;
+          }
+          else if (filter['price'].value === 'low') {
+            return item.offer['price'] < 10000;
+          }
+          else if (filter['price'].value === 'middle') {
+            return item.offer['price'] > 10000 && item.offer['price'] < 50000;
+          }
+          else if (filter['price'].value === 'high') {
+            return item.offer['price'] > 50000;
+          }
 
-    var filtered_by_rooms = filtered_by_price.filter(function (item) {
-      return item.offer.rooms === Number(filter['rooms'].value) || filter['rooms'].value === 'any';
-    });
+        }
+        else{
+          return item.offer[filter_type] === filter[filter_type].value || filter[filter_type].value === 'any';
+        }
+      });
+      return filtered_array;
+    }
 
-    var filtered_by_guests = filtered_by_rooms.filter(function (item) {
-      return item.offer.guests === Number(filter['guests'].value) || filter['guests'].value === 'any';
-    });
+    var filtered_by_type = filterArray('type', server_data);
+    var filtered_by_price = filterArray('price', filtered_by_type);
+    var filtered_by_rooms = filterArray('rooms', filtered_by_price);
+    var filtered_by_guests = filterArray('guests', filtered_by_rooms);
 
     var filterByFeatures = function (feature, array) {
 
