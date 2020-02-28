@@ -1,6 +1,7 @@
 'use strict';
 // 00 global variables and functions
 (function () {
+  window.ESC_KEYCODE = 27;
   window.map = document.querySelector('.map');
   window.map_elements = {
     area: map.querySelector('.map__pins'),
@@ -42,4 +43,7 @@
   window.addListener = function(element, event_type, call_back){
     element.addEventListener(event_type, call_back);
   }
+
+  //функция которая закрывает попап
+
 })();

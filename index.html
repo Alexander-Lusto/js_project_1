@@ -59,7 +59,7 @@
           <option value="2">Два гостя</option>
         </select>
 
-        <fieldset id="housing-features" class="map__filter-set features" disabled>
+        <fieldset id="housing-features" class="map__filter-set features">
           <input type="checkbox" name="features" value="wifi" id="filter-wifi">
           <label class="feature feature--wifi" for="filter-wifi">Wi-Fi</label>
 
@@ -95,7 +95,7 @@
         <div class="notice__photo">
           <div class="upload">
             <div class="notice__preview">
-              <img src="img/muffin.png" alt="Аватар пользователя"  width="40" height="44">
+              <img class=""  src="img/muffin.png" alt="Аватар пользователя"  width="40" height="44">
             </div>
             <input type="file" id="avatar">
             <label class="drop-zone" for="avatar">Загрузите или&nbsp;перетащите сюда фото</label>
@@ -254,9 +254,10 @@
 <script src="js/04_activate_page.js"></script>
 <script src="js/05_form_validation.js"></script>
 <script src="js/06_drag_pin.js"></script>
-<!-- <script src="js/07_backend_map.js"></script>
-<script src="js/07_backend_form.js"></script> -->
 <script src="js/07_backend.js"></script>
 <script src="js/07_errors.js"></script>
+<script src="js/08_map_filter.js"></script>
+<script src="js/08_debounce.js"></script>
+<script src="js/09_user_avatar_&_photo.js"></script>
 </body>
 </html>

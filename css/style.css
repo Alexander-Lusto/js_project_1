@@ -493,6 +493,7 @@ textarea:focus {
   background: #dadada;
   display: inline-block;
   width: 70px;
+  height: 70px;
   text-align: center;
   line-height: 70px;
   padding: 0 15px;
@@ -581,6 +582,7 @@ textarea:focus {
   display: flex;
 
   min-height: 70px;
+  max-width: 140px;
 }
 
 .notice__info {
@@ -604,7 +606,12 @@ textarea:focus {
 }
 
 .form__photo-container {
+  width: 500px;
+}
+
+.form__photo {
   width: 140px;
+  margin-top: 10px;
 }
 
 .form__element--submit {

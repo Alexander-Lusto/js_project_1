@@ -41,7 +41,9 @@
 
   //get information from server;
   var onLoad = function (data) {
-    return window.server_data = data;
+    window.server_data = data;
+    addListener(map_elements.main_pin, 'mouseup', activatePage);
+    return server_data;
   }
 
   requetToServer('GET', BASE_URL + '/data', onLoad);

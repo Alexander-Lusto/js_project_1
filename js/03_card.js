@@ -26,10 +26,20 @@
     template_item.appendChild(avatar);
 
     //create close button
-    var popup_close = createElement('button','popup__close','Закрыть', template_item);
-    popup_close.addEventListener('click', function(){
+    var close_button = createElement('button','popup__close','Закрыть', template_item);
+    close_button.addEventListener('click', function(){
        template_item.remove();
     });
+
+    var closePopup = function (evt) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        evt.preventDefault();
+        template_item.remove();
+        document.removeEventListener('keydown', closePopup);
+      }
+    }
+    
+    document.addEventListener('keydown', closePopup);
 
     // create title
     createElement('h3','popup__title', object.offer['title'], template_item);
