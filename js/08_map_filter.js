@@ -22,6 +22,7 @@
 
   var filterPins = function () {
 
+<<<<<<< HEAD
     var filterArray = function (filterType, array) {
       var filteredArray = array.filter(function (item) {
 
@@ -43,6 +44,44 @@
           else if (filter['price'].value === 'high') {
             return item.offer['price'] > 50000;
           }
+=======
+    var filterArray = function (filter_type, array) {
+      var filtered_array = array.filter(function (item){
+        if (filter_type === 'rooms' || filter_type === 'gusts'){
+          return item.offer[filter_type] === Number(filter[filter_type].value) || filter[filter_type].value === 'any';
+        }
+        else if (filter_type === 'price'){
+
+          if (filter['price'].value === 'any') {
+            return item;
+          }
+          else if (filter['price'].value === 'low') {
+            return item.offer['price'] < 10000;
+          }
+          else if (filter['price'].value === 'middle') {
+            return item.offer['price'] > 10000 && item.offer['price'] < 50000;
+          }
+          else if (filter['price'].value === 'high') {
+            return item.offer['price'] > 50000;
+          }
+
+        }
+        else{
+          return item.offer[filter_type] === filter[filter_type].value || filter[filter_type].value === 'any';
+        }
+      });
+      return filtered_array;
+    }
+
+    var filtered_by_type = filterArray('type', server_data);
+    var filtered_by_price = filterArray('price', filtered_by_type);
+    var filtered_by_rooms = filterArray('rooms', filtered_by_price);
+    var filtered_by_guests = filterArray('guests', filtered_by_rooms);
+
+    var filterByFeatures = function (feature, array) {
+
+      if (filter.features[feature].checked === true) {
+>>>>>>> 19db7dad6627d7ac817921185f693c9208845afa
 
         }
 
