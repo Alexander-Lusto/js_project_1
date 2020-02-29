@@ -1,13 +1,15 @@
+// 08 Устраняем дребезг при быстром переключении фильтров
 'use strict';
-(function(){
-  var DEBOUNCE_INTERVAL = 500; //ms
-  var last_timer;
+
+(function () {
+  var DEBOUNCE_INTERVAL = 500; // ms
+  var lastTimer;
   window.debounce = function (fun) {
-    if (last_timer) {
-      window.clearTimeout(last_timer);
+    if (lastTimer) {
+      window.clearTimeout(lastTimer);
     }
-    last_timer = window.setTimeout(function () {
+    lastTimer = window.setTimeout(function () {
       fun();
     }, DEBOUNCE_INTERVAL);
-  }
+  };
 })();

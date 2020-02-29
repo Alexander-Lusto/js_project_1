@@ -1,138 +1,139 @@
-//03 Add cards to the map
-// 'use strict';
-(function(){
-  var createElement = function(html_tag, class_name, text, parent_block){
-    var element = document.createElement(html_tag);
-    element.classList.add(class_name);
+// 03 Создаем карточку объявления при клике на метку
+'use strict';
+
+(function () {
+  var createElement = function (htmlTag, className, text, parentBlock) {
+    var element = document.createElement(htmlTag);
+    element.classList.add(className);
     element.textContent = text;
-    if(parent_block){
-      parent_block.appendChild(element);
-      return element;
-    } else{
+    if (parentBlock) {
+      parentBlock.appendChild(element);
       return element;
     }
-  }
+    else {
+      return element;
+    }
+  };
 
-  window.createCard = function(object){
-    //create template
+  window.createCard = function (object) {
+    // create template
     var template = document.querySelector('template').content.querySelector('.map__card');
-    var template_item = template.cloneNode();
+    var templateItem = template.cloneNode();
 
-    //create avatar
-    var avatar = createElement('img','popup__avatar');
+    // create avatar
+    var avatar = createElement('img', 'popup__avatar');
     avatar.src = object.author['avatar'];
     avatar.width = 70;
     avatar.height = 70;
-    template_item.appendChild(avatar);
+    templateItem.appendChild(avatar);
 
-    //create close button
-    var close_button = createElement('button','popup__close','Закрыть', template_item);
-    close_button.addEventListener('click', function(){
-       template_item.remove();
+    // create close button
+    var closeButton = createElement('button', 'popup__close', 'Закрыть', templateItem);
+    closeButton.addEventListener('click', function () {
+      templateItem.remove();
     });
 
     var closePopup = function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
+      if (evt.keyCode === window.ESC_KEYCODE) {
         evt.preventDefault();
-        template_item.remove();
+        templateItem.remove();
         document.removeEventListener('keydown', closePopup);
       }
-    }
-    
+    };
     document.addEventListener('keydown', closePopup);
 
     // create title
-    createElement('h3','popup__title', object.offer['title'], template_item);
+    createElement('h3', 'popup__title', object.offer['title'], templateItem);
 
     // create address
-    createElement('p','popup__text--address', object.offer['address'], template_item);
+    createElement('p', 'popup__text--address', object.offer['address'], templateItem);
 
     // create price
-    createElement('p','popup__text--price', object.offer['price'] + ' \u{20BD}/ночь', template_item);
+    createElement('p', 'popup__text--price', object.offer['price'] + ' \u{20BD}/ночь', templateItem);
 
-    //create popup__type
-    var type = createElement('h4','popup__type');
-    switch(object.offer['type']){
+    // create type
+    var type = createElement('h4', 'popup__type');
+    switch (object.offer['type']) {
       case 'flat':
-      type.textContent = 'Квартира';
-      break;
+        type.textContent = 'Квартира';
+        break;
 
       case 'bungalo':
-      type.textContent = 'Бунгало';
-      break;
+        type.textContent = 'Бунгало';
+        break;
 
       case 'house':
-      type.textContent = 'Дом';
-      break;
+        type.textContent = 'Дом';
+        break;
 
       case 'place':
-      type.textContent = 'Дворец';
-      break;
-    }
-    template_item.appendChild(type);
-
-    //create rooms and guests
-    createElement('p','popup__text--capacity',object.offer['rooms'] + ' комнаты для ' + object.offer['guests'] + ' гостей', template_item);
-
-    //create checkin and checkout time
-    createElement('p','popup__text--time','Заезд после ' + object.offer['checkin'] + ', выезд до ' + object.offer['checkout'], template_item);
-
-    //create features
-    var features = createElement('ul', 'popup__features', "", template_item);
-    for(var i = 0; i < object.offer['features'].length; i++){
-      var features_item = document.createElement('li');
-      switch(object.offer['features'][i]){
-        case 'wifi':
-        features_item.classList.add('feature','feature--wifi');
+        type.textContent = 'Дворец';
         break;
+    }
+    templateItem.appendChild(type);
+
+    // create rooms and guests
+    createElement('p', 'popup__text--capacity', object.offer['rooms'] + ' комнаты для ' + object.offer['guests'] + ' гостей', templateItem);
+
+    // create checkin and checkout time
+    createElement('p', 'popup__text--time', 'Заезд после ' + object.offer['checkin'] + ', выезд до ' + object.offer['checkout'], templateItem);
+
+    // create features
+    var features = createElement('ul', 'popup__features', '', templateItem);
+    for (var i = 0; i < object.offer['features'].length; i++) {
+      var featuresItem = document.createElement('li');
+      switch (object.offer['features'][i]) {
+        case 'wifi':
+          featuresItem.classList.add('feature', 'feature--wifi');
+          break;
 
         case 'dishwasher':
-        features_item.classList.add('feature','feature--dishwasher');
-        break;
+          featuresItem.classList.add('feature', 'feature--dishwasher');
+          break;
 
         case 'parking':
-        features_item.classList.add('feature','feature--parking');
-        break;
+          featuresItem.classList.add('feature', 'feature--parking');
+          break;
 
         case 'washer':
-        features_item.classList.add('feature','feature--washer');
-        break;
+          featuresItem.classList.add('feature', 'feature--washer');
+          break;
 
         case 'elevator':
-        features_item.classList.add('feature','feature--elevator');
-        break;
+          featuresItem.classList.add('feature', 'feature--elevator');
+          break;
 
         case 'conditioner':
-        features_item.classList.add('feature','feature--conditioner');
-        break;
+          featuresItem.classList.add('feature', 'feature--conditioner');
+          break;
       }
-      features.appendChild(features_item);
+      features.appendChild(featuresItem);
     }
 
-    //create description
-    createElement('p','popup__description', object.offer['description'], template_item);
+    // create description
+    createElement('p', 'popup__description', object.offer['description'], templateItem);
 
-    //create photos
-    var photos = createElement('ul','popup__photos', "", template_item);
-    for(var i = 0; i < object.offer['photos'].length; i++){
-      var photos_item = document.createElement('li');
-      photos_item.style = 'display: inline;';
-      photos.appendChild(photos_item);
-      var photos_item_img = document.createElement('img');
-      photos_item.appendChild(photos_item_img);
-      photos_item_img.src = object.offer['photos'][i];
-      photos_item_img.width = 65;
-      photos_item_img.height = 65;
-      photos_item_img.style = 'display: inline; margin-right: 5px;';
-      photos_item.appendChild(photos_item_img);
+    // create photos
+    var photos = createElement('ul', 'popup__photos', '', templateItem);
+    for (i = 0; i < object.offer['photos'].length; i++) {
+      var photosItem = document.createElement('li');
+      photosItem.style = 'display: inline;';
+      photos.appendChild(photosItem);
+      var photosItemImg = document.createElement('img');
+      photosItem.appendChild(photosItemImg);
+      photosItemImg.src = object.offer['photos'][i];
+      photosItemImg.width = 65;
+      photosItemImg.height = 65;
+      photosItemImg.style = 'display: inline; margin-right: 5px;';
+      photosItem.appendChild(photosItemImg);
     }
-    map_elements.area.appendChild(template_item);
-  }
+    window.mapElements.area.appendChild(templateItem);
+  };
 
   window.deletePreviousAnnouncements = function () {
-    var map_cards = map.querySelectorAll('.map__card');
-    for(var i = 0; i < map_cards.length; i++){
-      map_cards[i].remove();
+    var mapCards = window.map.querySelectorAll('.map__card');
+    for (var i = 0; i < mapCards.length; i++) {
+      mapCards[i].remove();
     }
-  }
+  };
 })();

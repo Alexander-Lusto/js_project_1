@@ -246,7 +246,7 @@ textarea:focus {
 
   width: 65px;
   height: 65px;
-
+  z-index: 2;
   cursor: move;
 }
 
@@ -259,7 +259,7 @@ textarea:focus {
   transform: translateY(-2px);
 
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 .map__pin--main:active img {
@@ -493,6 +493,7 @@ textarea:focus {
   background: #dadada;
   display: inline-block;
   width: 70px;
+  height: 70px;
   text-align: center;
   line-height: 70px;
   padding: 0 15px;
@@ -581,7 +582,6 @@ textarea:focus {
   display: flex;
 
   min-height: 70px;
-  max-width: 140px;
 }
 
 .notice__info {
@@ -610,6 +610,7 @@ textarea:focus {
 
 .form__photo {
   width: 140px;
+  margin-right: 10px;
   margin-top: 10px;
 }
 
@@ -734,19 +735,6 @@ textarea:focus {
   z-index: 3;
 }
 
-.btn-close{
-  position: absolute;
-
-  top: 20px;
-  right: 20px;
-
-  font-size: 50px;
-  color: #000;
-  cursor: pointer;
-
-  transform: translateY(-0.3em);
-}
-
 .message{
   width: 400px;
   padding: 50px 50px;
@@ -761,10 +749,22 @@ textarea:focus {
   box-sizing: border-box;
 
   text-align: center;
-  color: black;
+  color: green;
   background-color: white;
   font-family: inherit;
   font-size: 22px;
 
   z-index: 3;
+}
+.btn-close{
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  font-size: 50px;
+  color: #000;
+  cursor: pointer;
+
+  transform: translateY(-0.3em);
 }

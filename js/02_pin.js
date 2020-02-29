@@ -1,23 +1,25 @@
+// 02 Создаем метки на карте
 'use strict';
+
 (function () {
   window.addPinsOnMap = function (array) {
     var template = document.querySelector('template').content.querySelector('.map__pin');
     for (var i = 0; i < array.length; i++) {
-      var template_item = template.cloneNode(true);
-      var template_item_img = template_item.querySelector('img');
+      var templateItem = template.cloneNode(true);
+      var templateItemImg = templateItem.querySelector('img');
 
-      template_item.style = 'left: ' + array[i].location['x'] + 'px; ' + 'bottom: '  + (array[i].location['y'] - 250) + 'px;';
-      template_item_img.src = array[i].author['avatar'];
-      template_item_img.title = array[i].offer['title'];
+      templateItem.style = 'left: ' + array[i].location['x'] + 'px; ' + 'bottom: ' + (array[i].location['y'] - 250) + 'px;';
+      templateItemImg.src = array[i].author['avatar'];
+      templateItemImg.title = array[i].offer['title'];
 
       (function (pin) {
-        template_item.addEventListener('click', function(){
-          deletePreviousAnnouncements();
-          createCard(pin);
+        templateItem.addEventListener('click', function () {
+          window.deletePreviousAnnouncements();
+          window.createCard(pin);
         });
       })(array[i]);
 
-      map_elements.area.appendChild(template_item);
+      window.mapElements.area.appendChild(templateItem);
     }
-  }
+  };
 })();

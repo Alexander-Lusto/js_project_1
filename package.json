@@ -1,0 +1,23 @@
+{
+  "name": "js_project_1",
+  "version": "1.0.0",
+  "description": "This is my first serious js project.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexander-Lusto/js_project_1.git"
+  },
+  "author": "Alexander Lusto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexander-Lusto/js_project_1/issues"
+  },
+  "homepage": "https://github.com/Alexander-Lusto/js_project_1#readme"
+}

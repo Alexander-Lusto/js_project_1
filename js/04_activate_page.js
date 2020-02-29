@@ -1,29 +1,30 @@
-//04 activate page
+// 04 Активируем страницу при перемещении метки
 'use strict';
-(function(){
-  var activateForm = function(){
-    form.classList.remove('notice__form--disabled');
-    for(var i = 0; i < form_elements.fieldsets.length; i++){
-      form_elements.fieldsets[i].disabled = false;
+
+(function () {
+  var activateForm = function () {
+    window.form.classList.remove('notice__form--disabled');
+    for (var i = 0; i < window.formElements.fieldsets.length; i++) {
+      window.formElements.fieldsets[i].disabled = false;
     }
-  }
+  };
 
   // получаем координаты главной метки для неактивной страницы
-  var getPinCoordsBeforeStart = function(elem) {
+  window.getPinCoordsBeforeStart = function (elem) {
     var box = elem.getBoundingClientRect();
-    var margin = map.getBoundingClientRect();
+    var margin = window.map.getBoundingClientRect();
 
-    var coord_y = Math.round(box.top + pageYOffset + (box.height / 2));
-    var coord_x = Math.round(box.left - margin.left + pageXOffset + (box.width / 2));
-    form_elements.address.value = coord_x + " x, " + coord_y + " y;";
-  }
-  getPinCoordsBeforeStart(map_elements.main_pin);
+    var coordY = Math.round(box.top + pageYOffset + (box.height / 2));
+    var coordX = Math.round(box.left - margin.left + pageXOffset + (box.width / 2));
+    window.formElements.address.value = coordX + ' x, ' + coordY + ' y;';
+  };
+  window.getPinCoordsBeforeStart(window.mapElements.mainPin);
 
-  //activate page
-  window.activatePage = function(){
-    map.classList.remove("map--faded");
-    activateForm(form, form_elements.fieldsets);
-    addPinsOnMap(server_data);
-    map_elements.main_pin.removeEventListener('mouseup', activatePage);
-  }
+  // активируем страницу
+  window.activatePage = function () {
+    window.map.classList.remove('map--faded');
+    activateForm();
+    window.addPinsOnMap(window.serverData);
+    window.mapElements.mainPin.removeEventListener('mouseup', window.activatePage);
+  };
 })();

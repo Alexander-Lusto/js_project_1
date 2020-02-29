@@ -1,47 +1,49 @@
+// 09 Добавляем возможность видеть загружаемые в форму фотографии и аватар при заполеннии формы
 'use strict';
-(function(){
+
+(function () {
   var IMAGE_TYPES = ['jpg', 'jpeg', 'png', 'gif'];
-  var avatar_choser = document.querySelector('input[id="avatar"]'); //<input> элемент с атрибутом type="file" позволяет пользователю выбрать один файл или более из файлового хранилища своего устройства. После выбора эти файлы могут быть загружены на сервер при помощи формы, или обработаны JavaScript и File API.
-  var avatar_preview = document.querySelector('.notice__preview img');
+  var avatarСhoser = document.querySelector('input[id="avatar"]');
+  var avatarPreview = document.querySelector('.notice__preview img');
 
-  var photos_choser = document.querySelector('input[id="images"]');
-  var photos_container = document.querySelector('.form__photo-container');
+  var photosChoser = document.querySelector('input[id="images"]');
+  var photosContainer = document.querySelector('.form__photo-container');
 
-  avatar_choser.addEventListener('change', function () {
-    var file = avatar_choser.files[0]; //Обращение к одному выбранному файлу с использованием классической DOM-модели. Если пользователь выбирает только один файл, ему соответствует первый файл в списке.
-    var file_name = file.name.toLowerCase(); //Метод toLowerCase() возвращает значение строки, на которой он был вызван, преобразованное в нижний регистр.
+  avatarСhoser.addEventListener('change', function () {
+    var file = avatarСhoser.files[0];
+    var fileName = file.name.toLowerCase();
 
-    var matches = IMAGE_TYPES.some(function (it) { //Метод some() проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
-      return file_name.endsWith(it); //Метод endsWith() определяет, заканчивается ли строка символами другой строки, возвращая, соотвественно, true или false.
+    var matches = IMAGE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
     });
 
     if (matches) {
       var reader = new FileReader();
 
-      reader.addEventListener('load', function (){
-        avatar_preview.src = reader.result;
+      reader.addEventListener('load', function () {
+        avatarPreview.src = reader.result;
       });
 
       reader.readAsDataURL(file);
     }
   });
 
-  photos_choser.addEventListener('change', function () {
-    var file = photos_choser.files[0];
-    var file_name = file.name.toLowerCase();
+  photosChoser.addEventListener('change', function () {
+    var file = photosChoser.files[0];
+    var fileName = file.name.toLowerCase();
 
-    var matches = IMAGE_TYPES.some(function (it) { 
-      return file_name.endsWith(it);
+    var matches = IMAGE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
     });
 
     if (matches) {
       var reader = new FileReader();
 
-      reader.addEventListener('load', function (){
-        var user_photo = document.createElement('img');
-        user_photo.classList.add('form__photo');
-        user_photo.src = reader.result;
-        photos_container.appendChild(user_photo);
+      reader.addEventListener('load', function () {
+        var userPhoto = document.createElement('img');
+        userPhoto.classList.add('form__photo');
+        userPhoto.src = reader.result;
+        photosContainer.appendChild(userPhoto);
       });
 
       reader.readAsDataURL(file);
