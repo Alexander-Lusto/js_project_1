@@ -34,7 +34,7 @@
     });
 
     var closePopup = function (evt) {
-      if (evt.keyCode === window.ESC_KEYCODE) {
+      if (window.utils.isEscKeycode) {
         evt.preventDefault();
         templateItem.remove();
         document.removeEventListener('keydown', closePopup);
@@ -127,11 +127,11 @@
       photosItemImg.style = 'display: inline; margin-right: 5px;';
       photosItem.appendChild(photosItemImg);
     }
-    window.mapElements.area.appendChild(templateItem);
+    window.pageElements.mapElements.area.appendChild(templateItem);
   };
 
   window.deletePreviousAnnouncements = function () {
-    var mapCards = window.map.querySelectorAll('.map__card');
+    var mapCards = window.pageElements.map.querySelectorAll('.map__card');
     for (var i = 0; i < mapCards.length; i++) {
       mapCards[i].remove();
     }

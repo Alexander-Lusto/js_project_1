@@ -2,7 +2,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
   var BODY = document.querySelector('body');
 
   window.showSuccessMessage = function () {
@@ -21,7 +20,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
+      if (window.utils.isEscKeycode) {
         message.remove();
       }
     });

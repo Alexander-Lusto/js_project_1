@@ -7,12 +7,12 @@
   var mainPinWidth = 65;
 
   // получаем координаты элемента в контексте документа
-  window.getPinCoords = function () {
-    var box = window.mapElements['mainPin'].getBoundingClientRect();
+  var getPinCoords = function () {
+    var box = window.pageElements.mapElements['mainPin'].getBoundingClientRect();
     var margin = map.getBoundingClientRect();
-    var coordsY = Math.round(box.top + pageYOffset + window.mapElements['mainPinHeight']);
+    var coordsY = Math.round(box.top + pageYOffset + window.pageElements.mapElements['mainPinHeight']);
     var coordsX = Math.round(box.left - margin.left + pageXOffset + (box.width / 2));
-    window.formElements['address'].value = coordsX + ' x, ' + coordsY + ' y;';
+    window.pageElements.formElements['address'].value = coordsX + ' x, ' + coordsY + ' y;';
   };
 
   mainPin.addEventListener('mousedown', function (evt) {
@@ -40,7 +40,7 @@
         x: evtMove.clientX,
         y: evtMove.clientY
       };
-      window.getPinCoords();
+      getPinCoords();
     };
 
     var onMouseUp = function () {

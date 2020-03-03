@@ -2,7 +2,7 @@
 'use strict';
 
 (function () {
-  window.announcements = [];
+  window.mockData = [];
   var avatars = ['01', '02', '03', '04', '05', '06', '07', '08'];
   var titles = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
   var types = ['flat', 'place', 'house', 'bungalo'];
@@ -14,8 +14,8 @@
 
   var getFeaturesRendomLength = function () {
     var featuresArrayRandomLength = [];
-    window.shuffleArray(features);
-    for (var i = 0; i < window.getRandomInt(1, features.length); i++) {
+    window.utils.shuffleArray(features);
+    for (var i = 0; i < window.utils.getRandomInt(1, features.length); i++) {
       featuresArrayRandomLength.push(features[i]);
     }
     return featuresArrayRandomLength;
@@ -41,29 +41,29 @@
 
   };
 
-  window.shuffleArray(avatars);
+  window.utils.shuffleArray(avatars);
 
   for (let i = 0; i < 8; i++) {
-    window.announcements[i] = {
+    window.mockData[i] = {
       author: {
         avatar: 'img/avatars/user' + avatars[i] + '.png'
       },
       location: {
-        x: Math.round(window.getRandomInt(0, 1000) / 50) * 50,
-        y: Math.round(window.getRandomInt(0, 530) / 50) * 50
+        x: Math.round(window.utils.getRandomInt(0, 1000) / 50) * 50,
+        y: Math.round(window.utils.getRandomInt(0, 530) / 50) * 50
       },
       offer: {
         title: titles[i],
         address: 'x' + ' y',
-        price: window.getRandomInt(1000, 1000000),
+        price: window.utils.getRandomInt(1000, 1000000),
         type: getType(i),
-        rooms: window.getRandomInt(1, 5),
-        guests: window.getRandomInt(1, 3),
-        checkin: checkinTimes[window.getRandomInt(0, 2)],
-        checkout: checkoutTimes[window.getRandomInt(0, 2)],
+        rooms: window.utils.getRandomInt(1, 5),
+        guests: window.utils.getRandomInt(1, 3),
+        checkin: checkinTimes[window.utils.getRandomInt(0, 2)],
+        checkout: checkoutTimes[window.utils.getRandomInt(0, 2)],
         features: getFeaturesRendomLength(),
         description: '',
-        photos: window.shuffleArray(photos)
+        photos: window.utils.shuffleArray(photos)
       }
     };
   }

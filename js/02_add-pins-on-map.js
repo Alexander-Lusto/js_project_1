@@ -19,7 +19,7 @@
         });
       })(array[i]);
 
-      window.mapElements.area.appendChild(templateItem);
+      window.pageElements.mapElements.area.appendChild(templateItem);
     }
   };
 })();
