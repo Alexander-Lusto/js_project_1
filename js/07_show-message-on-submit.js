@@ -4,15 +4,22 @@
 (function () {
   var BODY = document.querySelector('body');
 
-  window.showSuccessMessage = function () {
+  window.showMessageOnSubmit = function (text) {
     var message = document.createElement('div');
     var messageText = document.createElement('p');
     var messageClose = document.createElement('span');
 
     messageClose.textContent = '\u00D7';
-    messageText.textContent = 'Ваше объявление успешно отправлено!';
 
-    message.classList.add('message');
+    if (text) {
+      messageText.textContent = text;
+      message.classList.add('error');
+    } 
+    else {
+      messageText.textContent = 'Ваше объявление успешно отправлено!';
+      message.classList.add('message');
+    }
+    
     messageClose.classList.add('btn-close');
 
     messageClose.addEventListener('click', function () {

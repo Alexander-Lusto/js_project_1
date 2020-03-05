@@ -20,7 +20,7 @@
             checkout: document.querySelector('#timeout'),
             rooms: document.querySelector('#room_number'),
             guests: document.querySelector('#capacity'),
-            guestsOptions: document.querySelectorAll('#capacity option'),
+            guestsOptions: document.querySelectorAll('#capacity option')
         }
     }
 })();

@@ -2,7 +2,17 @@
 'use strict';
 
 (function () {
-  
+  var formElements = {
+    fieldsets: document.querySelectorAll('fieldset'),
+    address: document.querySelector('input[name="address"]'),
+    price: document.querySelector('#price'),
+    type: document.querySelector('#type'),
+    checkin: document.querySelector('#timein'),
+    checkout: document.querySelector('#timeout'),
+    rooms: document.querySelector('#room_number'),
+    guests: document.querySelector('#capacity'),
+    guestsOptions: document.querySelectorAll('#capacity option'),
+  }
 
 
   // получаем координаты главной метки для неактивной страницы

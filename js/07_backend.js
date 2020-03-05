@@ -8,19 +8,19 @@
   var onError = function (status, text) {
     switch (status) {
       case 400:
-        window.showErrorMessage('Неверный запрос');
+        window.showMessageOnSubmit('Неверный запрос');
         break;
 
       case 401:
-        window.showErrorMessage('Пользователь не авторизован');
+        window.showMessageOnSubmit('Пользователь не авторизован');
         break;
 
       case 404:
-        window.showErrorMessage('Страница не найдена');
+        window.showMessageOnSubmit('Страница не найдена');
         break;
 
       default:
-        window.showErrorMessage('Статус ответа: ' + status + ' ' + text);
+        window.showMessageOnSubmit('Статус ответа: ' + status + ' ' + text);
         break;
     }
   };
@@ -40,11 +40,11 @@
     });
 
     xhr.addEventListener('error', function () {
-      window.showErrorMessage('Произошла ошибка соединения');
+      window.showMessageOnSubmit('Произошла ошибка соединения');
     });
 
     xhr.addEventListener('timeout', function () {
-      window.showErrorMessage('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
+      window.showMessageOnSubmit('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
 
     xhr.timeout = TIMEOUT;
@@ -57,7 +57,7 @@
 
     var onLoad = function () {
       window.deactivatePage();
-      window.showSuccessMessage();
+      window.showMessageOnSubmit();
       window.pageElements.mapElements.mainPin.addEventListener('mouseup', window.activatePage);
     };
 
