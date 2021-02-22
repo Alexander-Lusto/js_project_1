@@ -2,7 +2,7 @@
 'use strict';
 
 (function () {
-  var BASE_URL = 'https://js.dump.academy/keksobooking';
+  var BASE_URL = 'https://javascript.pages.academy/keksobooking';
   var TIMEOUT = 30000;
 
   var onError = function (status, text) {
@@ -27,8 +27,8 @@
 
   var requestToServer = function (method, url, onLoad, data = '') {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
     xhr.open(method, url);
+    xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
